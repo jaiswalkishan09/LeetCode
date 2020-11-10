@@ -1,0 +1,58 @@
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        bool ch=false;
+        set<string> s1;
+        for(int i=0;i<wordList.size();i++)
+        {
+            if(wordList[i]==endWord)
+            {
+                ch=true;
+            }
+            s1.insert(wordList[i]);
+        }
+        if(!ch)
+        {
+            return 0;
+        }
+        vector<string>v;
+        v.push_back(beginWord);
+        s1.erase(beginWord);
+        int co=1;
+        while(!v.empty())
+        {
+            int s=v.size();
+            for(int i=0;i<s;i++)
+            {
+                string temp=v[0];
+                string temp2=v[0];
+                v.erase(v.begin());
+                for(int j=0;j<temp.size();j++)
+                {   
+                    for(char c='a';c<='z';c++)
+                    {
+                        temp[j]=c;
+                        if(temp==endWord)
+                        {
+                            return co+1;
+                        }
+                    
+                            auto it=s1.find(temp);
+                            if(it!=s1.end())
+                            {
+                                v.push_back(temp);
+                                s1.erase(temp);
+                                
+                            }
+                        temp=temp2;
+                        
+                    }
+               
+                }
+                
+            }
+            co++;
+        }
+        return 0;
+    }
+};
