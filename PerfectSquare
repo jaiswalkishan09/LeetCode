@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int numSquares(int n) {
+     vector<int>v(n+1);
+        if(n<=3)
+        {
+            return n;
+        }
+       for(int i=0;i<=3;i++)
+       {
+           v[i]=i;
+       }
+        int j=4;
+        while(j<=n)
+        {
+            
+            v[j]=j;
+            for(int k=1;k*k<=j;k++)
+            {
+                if(v[j]>(1+v[j-k*k]))
+                {
+                   v[j]=1+v[j-k*k];
+                    
+                }
+            }
+            j++;
+        }
+        
+        
+        return v[j-1];
+    }
+};
