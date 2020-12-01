@@ -1,0 +1,48 @@
+class Solution {
+    bool iscycle(vector<int>&v,vector<int>&ans,vector<vector<int>>&p,int i)
+    {
+        cout<<i<<" ";
+        if(v[i]==1)
+        {
+            return true;
+        }
+        v[i]=1;
+        for(int j=0;j<p[i].size();j++)
+        {
+            if(v[p[i][j]]!=2)
+            {
+            if(iscycle(v,ans,p,p[i][j]))
+              {
+                return true;
+              }
+            }
+        }
+        v[i]=2;
+        ans.push_back(i);
+        return false;
+        
+    }
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int>ans;
+        vector<int>v(numCourses,0);
+        vector<vector<int>>p(numCourses,vector<int>());
+        for(int i=0;i<prerequisites.size();i++)
+        {
+           p[prerequisites[i][0]].push_back(prerequisites[i][1]);
+        }
+        for(int i=0;i<p.size();i++)
+        {
+                if(v[i]==0)
+                {
+                    if(iscycle(v,ans,p,i))
+                    {
+                        return vector<int>();
+                    }
+                }
+        }
+        return ans;
+        
+       
+    }
+};
